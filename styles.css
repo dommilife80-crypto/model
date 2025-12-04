@@ -1,0 +1,512 @@
+/* ============================================
+   Переменные CSS
+   ============================================ */
+:root {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --accent-color: #f093fb;
+    --text-primary: #2d3748;
+    --text-secondary: #4a5568;
+    --text-light: #718096;
+    --bg-primary: #ffffff;
+    --bg-secondary: #f7fafc;
+    --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+    --border-radius: 12px;
+    --border-radius-lg: 20px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --font-primary: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    --font-heading: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ============================================
+   Сброс стилей и базовые настройки
+   ============================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================
+   Контейнер
+   ============================================ */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* ============================================
+   Заголовок
+   ============================================ */
+header {
+    text-align: center;
+    color: white;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.02em;
+}
+
+header p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    opacity: 0.95;
+    font-weight: 300;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   Основной контент
+   ============================================ */
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+@media (max-width: 1024px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================
+   Просмотрщик автомобиля
+   ============================================ */
+.car-viewer {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-xl);
+    transition: var(--transition);
+}
+
+.car-viewer:hover {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+
+.viewer-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+    text-align: center;
+    letter-spacing: -0.01em;
+}
+
+#car-container {
+    width: 100%;
+    height: 500px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.controls {
+    margin-top: 1.5rem;
+}
+
+/* ============================================
+   Выбор цвета
+   ============================================ */
+.color-picker-section {
+    margin-bottom: 1.5rem;
+}
+
+.color-picker-section h3 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.color-option {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+    position: relative;
+}
+
+.color-option::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: var(--border-radius);
+    padding: 2px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.color-option:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: var(--shadow-lg);
+}
+
+.color-option:hover::before {
+    opacity: 1;
+}
+
+.color-option.active {
+    border-color: var(--primary-color);
+    border-width: 4px;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+}
+
+.custom-color-input {
+    width: 100%;
+    height: 50px;
+    border-radius: var(--border-radius);
+    border: 2px solid #e2e8f0;
+    cursor: pointer;
+    transition: var(--transition);
+    background: var(--bg-primary);
+}
+
+.custom-color-input:hover {
+    border-color: var(--primary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.custom-color-label {
+    display: block;
+    margin-top: 0.75rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* ============================================
+   Селектор модели
+   ============================================ */
+#model-selector {
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--primary-color);
+    font-size: 1em;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    cursor: pointer;
+    min-width: 250px;
+    transition: var(--transition);
+    font-family: var(--font-primary);
+}
+
+#model-selector:hover {
+    border-color: var(--secondary-color);
+    box-shadow: var(--shadow-sm);
+}
+
+#model-selector:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+/* ============================================
+   Управление вращением
+   ============================================ */
+.rotation-controls {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.rotation-btn {
+    flex: 1;
+    padding: 0.875rem 1rem;
+    background: var(--bg-gradient);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: var(--transition);
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+}
+
+.rotation-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.rotation-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.rotation-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.rotation-btn:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   Информационная секция
+   ============================================ */
+.info-section {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-xl);
+    transition: var(--transition);
+}
+
+.info-section:hover {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+
+.info-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.info-card {
+    background: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.25rem;
+    border-left: 4px solid var(--primary-color);
+    transition: var(--transition);
+}
+
+.info-card:hover {
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+}
+
+.info-card:last-child {
+    margin-bottom: 0;
+}
+
+.info-card h3 {
+    color: var(--secondary-color);
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.info-card p {
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.info-card ul,
+.info-card ol {
+    margin-left: 1.5rem;
+    margin-top: 0.75rem;
+}
+
+.info-card li {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.info-card strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* ============================================
+   Инструкции
+   ============================================ */
+.instructions {
+    background: var(--bg-primary);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-xl);
+    margin-top: 2rem;
+    transition: var(--transition);
+}
+
+.instructions:hover {
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+
+.instructions h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+}
+
+.instructions ol {
+    margin-left: 1.5rem;
+}
+
+.instructions li {
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.instructions strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* ============================================
+   Загрузка
+   ============================================ */
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 500;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* ============================================
+   Адаптивность
+   ============================================ */
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+
+    header {
+        padding: 2rem 0;
+    }
+
+    .car-viewer,
+    .info-section,
+    .instructions {
+        padding: 1.5rem;
+    }
+
+    #car-container {
+        height: 400px;
+    }
+
+    .color-grid {
+        grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+        gap: 0.75rem;
+    }
+
+    .color-option {
+        width: 50px;
+        height: 50px;
+    }
+
+    .rotation-controls {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.75rem;
+    }
+
+    .viewer-title,
+    .info-section h2,
+    .instructions h2 {
+        font-size: 1.5rem;
+    }
+
+    #car-container {
+        height: 350px;
+    }
+}
+
+/* ============================================
+   Улучшения доступности
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Фокус для клавиатурной навигации */
+button:focus-visible,
+.color-option:focus-visible,
+.custom-color-input:focus-visible {
+    outline: 3px solid var(--primary-color);
+    outline-offset: 2px;
+}
+

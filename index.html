@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Интерактивное пособие по покраске автомобиля с 3D моделью и выбором цвета">
+    <meta name="keywords" content="покраска автомобиля, 3D модель, интерактивное пособие">
+    <title>Интерактивное пособие «Покраска автомобиля»</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Интерактивное пособие «Покраска автомобиля»</h1>
+            <p>Изучите процесс покраски и выберите идеальный цвет для вашего автомобиля</p>
+        </header>
+
+        <main class="main-content">
+            <section class="car-viewer" aria-label="3D модель автомобиля">
+                <h2 class="viewer-title" id="model-title">3D Модель автомобиля</h2>
+                <div style="text-align: center; margin-bottom: 15px;">
+                    <label for="model-selector" style="display: block; color: #667eea; font-weight: 600; margin-bottom: 8px;">
+                        Выберите модель автомобиля:
+                    </label>
+                    <select id="model-selector" style="padding: 10px 15px; border-radius: 10px; border: 2px solid #667eea; font-size: 1em; background: white; color: #333; cursor: pointer; min-width: 250px;">
+                        <!-- Опции будут добавлены через JavaScript -->
+                    </select>
+                </div>
+                <p style="text-align: center; color: #666; font-size: 0.9em; margin-bottom: 10px;">
+                    💡 Зажмите левую кнопку мыши и перемещайте для вращения • Колесико мыши для приближения/отдаления
+                </p>
+                <div id="car-container" role="img" aria-label="Интерактивная 3D модель автомобиля">
+                    <div class="loading">Загрузка модели...</div>
+                </div>
+                
+                <div class="controls">
+                    <div class="color-picker-section">
+                        <h3>Выберите цвет покраски:</h3>
+                        <div class="color-grid" id="color-grid" role="group" aria-label="Палитра цветов"></div>
+                        <label for="custom-color" class="custom-color-label">Или выберите свой цвет</label>
+                        <input type="color" id="custom-color" class="custom-color-input" value="#ff0000" aria-label="Выбор пользовательского цвета">
+                    </div>
+                    
+                    <div class="rotation-controls">
+                        <button class="rotation-btn" id="rotate-left" aria-label="Вращать модель влево">
+                            ↺ Вращать влево
+                        </button>
+                        <button class="rotation-btn" id="rotate-right" aria-label="Вращать модель вправо">
+                            ↻ Вращать вправо
+                        </button>
+                        <button class="rotation-btn" id="reset-rotation" aria-label="Сбросить вращение">
+                            ⟲ Сброс
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="info-section" aria-label="Информация о покраске автомобиля">
+                <h2>Информация о покраске</h2>
+                
+                <article class="info-card">
+                    <h3>Этапы покраски автомобиля</h3>
+                    <ol>
+                        <li><strong>Подготовка поверхности</strong> - удаление старой краски, шлифовка</li>
+                        <li><strong>Грунтовка</strong> - нанесение грунта для лучшей адгезии</li>
+                        <li><strong>Шпатлевка</strong> - выравнивание неровностей</li>
+                        <li><strong>Покраска</strong> - нанесение основного слоя краски</li>
+                        <li><strong>Лакировка</strong> - защитный слой лака</li>
+                        <li><strong>Полировка</strong> - финальная обработка</li>
+                    </ol>
+                </article>
+
+                <article class="info-card">
+                    <h3>Типы красок</h3>
+                    <ul>
+                        <li><strong>Акриловая</strong> - наиболее распространенная, легко наносится</li>
+                        <li><strong>Металлик</strong> - содержит металлические частицы, эффект блеска</li>
+                        <li><strong>Перламутр</strong> - переливающийся эффект</li>
+                        <li><strong>Матовая</strong> - без блеска, современный вид</li>
+                    </ul>
+                </article>
+
+                <article class="info-card">
+                    <h3>Советы по выбору цвета</h3>
+                    <ul>
+                        <li>Светлые цвета визуально увеличивают автомобиль</li>
+                        <li>Темные цвета требуют больше ухода</li>
+                        <li>Металлик скрывает мелкие царапины</li>
+                        <li>Яркие цвета привлекают внимание</li>
+                    </ul>
+                </article>
+            </section>
+        </main>
+
+        <section class="instructions" aria-label="Инструкция по использованию">
+            <h2>Как использовать интерактивную модель</h2>
+            <ol>
+                <li><strong>Выберите цвет</strong> - кликните на один из предложенных цветов или используйте цветовую палитру</li>
+                <li><strong>Вращайте модель</strong> - используйте кнопки для вращения автомобиля и просмотра со всех сторон</li>
+                <li><strong>Изучите информацию</strong> - ознакомьтесь с этапами покраски и советами</li>
+                <li><strong>Экспериментируйте</strong> - попробуйте разные цвета, чтобы найти идеальный вариант</li>
+            </ol>
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script>
+        // Инициализация GLTFLoader для использования в модуле
+        (function() {
+            // Ждем загрузки Three.js и GLTFLoader
+            function initGLTFLoader() {
+                if (typeof THREE === 'undefined') {
+                    console.error('Three.js не загружен');
+                    return;
+                }
+                
+                // Проверяем разные способы доступа к GLTFLoader
+                if (typeof GLTFLoader !== 'undefined') {
+                    window.GLTFLoader = GLTFLoader;
+                    console.log('GLTFLoader загружен через глобальную переменную');
+                } else if (THREE.GLTFLoader) {
+                    window.GLTFLoader = THREE.GLTFLoader;
+                    console.log('GLTFLoader загружен через THREE.GLTFLoader');
+                } else {
+                    console.error('GLTFLoader не найден');
+                }
+            }
+            
+            // Пытаемся инициализировать сразу
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initGLTFLoader);
+            } else {
+                // Если DOM уже загружен, ждем немного для загрузки скриптов
+                setTimeout(initGLTFLoader, 100);
+            }
+        })();
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
