@@ -7,20 +7,94 @@
 // Конфигурация
 // ============================================
 const CONFIG = {
+    // Базовые цвета (используются по умолчанию)
     presetColors: [
-        { name: 'Красный', value: '#ff0000' },
-        { name: 'Синий', value: '#0066cc' },
-        { name: 'Черный', value: '#000000' },
-        { name: 'Белый', value: '#ffffff' },
-        { name: 'Серебристый', value: '#c0c0c0' },
-        { name: 'Серый', value: '#808080' },
-        { name: 'Зеленый', value: '#00cc00' },
-        { name: 'Желтый', value: '#ffcc00' },
-        { name: 'Оранжевый', value: '#ff6600' },
-        { name: 'Фиолетовый', value: '#9933cc' },
-        { name: 'Розовый', value: '#ff99cc' },
-        { name: 'Коричневый', value: '#663300' }
+        { name: 'Красный', value: '#ff0000', code: 'A3B' },
+        { name: 'Синий', value: '#0066cc', code: 'B4C' },
+        { name: 'Черный', value: '#000000', code: 'C5D' },
+        { name: 'Белый', value: '#ffffff', code: 'D6E' },
+        { name: 'Серебристый', value: '#c0c0c0', code: 'E7F' },
+        { name: 'Серый', value: '#808080', code: 'F8A' },
+        { name: 'Зеленый', value: '#00cc00', code: 'A9B' },
+        { name: 'Желтый', value: '#ffcc00', code: 'B0C' },
+        { name: 'Оранжевый', value: '#ff6600', code: 'C1D' },
+        { name: 'Фиолетовый', value: '#9933cc', code: 'D2E' },
+        { name: 'Розовый', value: '#ff99cc', code: 'E3F' },
+        { name: 'Коричневый', value: '#663300', code: 'F4A' }
     ],
+    // Коды красок для конкретных моделей (реальные официальные коды)
+    modelPaintCodes: {
+        'bmw_e34': [
+            { name: 'Красный', value: '#cc0000', code: '308', fullName: 'Brilliant Red' }, // BMW Brilliant Red
+            { name: 'Синий', value: '#0066cc', code: '276', fullName: 'Avus Blue Metallic' }, // BMW Avus Blue Metallic
+            { name: 'Черный', value: '#000000', code: '668', fullName: 'Jet Black' }, // BMW Jet Black
+            { name: 'Белый', value: '#ffffff', code: '300', fullName: 'Alpine White III' }, // BMW Alpine White III
+            { name: 'Серебристый', value: '#c0c0c0', code: '309', fullName: 'Arctic Silver Metallic' }, // BMW Arctic Silver
+            { name: 'Серый', value: '#808080', code: '237', fullName: 'Granite Silver Metallic' }, // BMW Granite Silver
+            { name: 'Зеленый', value: '#2d5016', code: '205', fullName: 'Malachite Green Metallic' }, // BMW Malachite Green
+            { name: 'Желтый', value: '#ffcc00', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Оранжевый', value: '#cc5500', code: '252', fullName: 'Calypso Red Metallic' }, // BMW Calypso Red (близкий к оранжевому)
+            { name: 'Фиолетовый', value: '#6b3fa0', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Розовый', value: '#ff99cc', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Коричневый', value: '#8b6f47', code: '139', fullName: 'Bronzite Beige Metallic' } // BMW Bronzite Beige
+        ],
+        'bmw_m3_gtr': [
+            { name: 'Красный', value: '#cc0000', code: '236', fullName: 'Misano Red' }, // BMW Misano Red (близкий к M3 GTR)
+            { name: 'Синий', value: '#003366', code: 'N/A', fullName: 'Individual Racing Blue' }, // Специальный цвет для M3 GTR
+            { name: 'Черный', value: '#000000', code: '668', fullName: 'Jet Black' }, // BMW Jet Black
+            { name: 'Белый', value: '#ffffff', code: '300', fullName: 'Alpine White' }, // BMW Alpine White
+            { name: 'Серебристый', value: '#c0c0c0', code: '309', fullName: 'Arctic Silver Metallic' }, // BMW Arctic Silver
+            { name: 'Серый', value: '#808080', code: '229', fullName: 'Sebring Gray Metallic' }, // BMW Sebring Gray
+            { name: 'Зеленый', value: '#2d5016', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Желтый', value: '#ffcc00', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Оранжевый', value: '#cc5500', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Фиолетовый', value: '#6b3fa0', code: 'N/A', fullName: 'Techno Violet' }, // BMW Techno Violet (для M3)
+            { name: 'Розовый', value: '#ff99cc', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Коричневый', value: '#8b6f47', code: 'N/A', fullName: 'Individual' } // Не стандартный цвет
+        ],
+        'bmw_4_series_lbworks': [
+            { name: 'Красный', value: '#cc0000', code: 'A75', fullName: 'Melbourne Red Metallic' }, // BMW Melbourne Red
+            { name: 'Синий', value: '#0066cc', code: 'B45', fullName: 'Estoril Blue II' }, // BMW Estoril Blue II
+            { name: 'Черный', value: '#000000', code: '475', fullName: 'Black Sapphire Metallic' }, // BMW Black Sapphire
+            { name: 'Белый', value: '#ffffff', code: 'A96', fullName: 'Mineral White Metallic' }, // BMW Mineral White
+            { name: 'Серебристый', value: '#c0c0c0', code: 'A83', fullName: 'Glacier Silver Metallic' }, // BMW Glacier Silver
+            { name: 'Серый', value: '#808080', code: 'B39', fullName: 'Mineral Grey Metallic' }, // BMW Mineral Grey
+            { name: 'Зеленый', value: '#2d5016', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Желтый', value: '#ffcc00', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Оранжевый', value: '#cc5500', code: 'B50', fullName: 'Valencia Orange Metallic' }, // BMW Valencia Orange
+            { name: 'Фиолетовый', value: '#6b3fa0', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Розовый', value: '#ff99cc', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Коричневый', value: '#8b6f47', code: 'N/A', fullName: 'Individual' } // Не стандартный цвет
+        ],
+        'bmw_m440i': [
+            { name: 'Красный', value: '#cc0000', code: 'C3N', fullName: 'Aventurin Red Metallic' }, // BMW Aventurin Red
+            { name: 'Синий', value: '#0066cc', code: 'C31', fullName: 'Portimao Blue Metallic' }, // BMW Portimao Blue
+            { name: 'Черный', value: '#000000', code: '475', fullName: 'Black Sapphire Metallic' }, // BMW Black Sapphire
+            { name: 'Белый', value: '#ffffff', code: '300', fullName: 'Alpine White' }, // BMW Alpine White
+            { name: 'Серебристый', value: '#c0c0c0', code: 'C36', fullName: 'Dravit Grey Metallic' }, // BMW Dravit Grey (близкий к серебристому)
+            { name: 'Серый', value: '#808080', code: 'C4P', fullName: 'Brooklyn Grey Metallic' }, // BMW Brooklyn Grey
+            { name: 'Зеленый', value: '#2d5016', code: 'C4G', fullName: 'San Remo Green Metallic' }, // BMW San Remo Green
+            { name: 'Желтый', value: '#ffcc00', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Оранжевый', value: '#cc5500', code: 'C1X', fullName: 'Sunset Orange Metallic' }, // BMW Sunset Orange
+            { name: 'Фиолетовый', value: '#6b3fa0', code: 'C3Z', fullName: 'Tanzanite Blue II Metallic' }, // BMW Tanzanite Blue (близкий к фиолетовому)
+            { name: 'Розовый', value: '#ff99cc', code: 'N/A', fullName: 'Individual' }, // Не стандартный цвет
+            { name: 'Коричневый', value: '#8b6f47', code: 'N/A', fullName: 'Individual' } // Не стандартный цвет
+        ],
+        'toyota_supra': [
+            { name: 'Красный', value: '#cc0000', code: '3R3', fullName: 'Red Mica' }, // Toyota Red Mica
+            { name: 'Синий', value: '#0066cc', code: '8P4', fullName: 'Blue Mica' }, // Toyota Blue Mica
+            { name: 'Черный', value: '#000000', code: '202', fullName: 'Black' }, // Toyota Black
+            { name: 'Белый', value: '#ffffff', code: '040', fullName: 'Super White' }, // Toyota Super White
+            { name: 'Серебристый', value: '#c0c0c0', code: '1G3', fullName: 'Silver Metallic' }, // Toyota Silver Metallic
+            { name: 'Серый', value: '#808080', code: '1G1', fullName: 'Grey Metallic' }, // Toyota Grey Metallic
+            { name: 'Зеленый', value: '#2d5016', code: '6Q7', fullName: 'Green Mica' }, // Toyota Green Mica
+            { name: 'Желтый', value: '#ffcc00', code: '4Y9', fullName: 'Yellow' }, // Toyota Yellow
+            { name: 'Оранжевый', value: '#cc5500', code: '3R4', fullName: 'Orange Mica' }, // Toyota Orange Mica
+            { name: 'Фиолетовый', value: '#6b3fa0', code: '8P5', fullName: 'Purple Mica' }, // Toyota Purple Mica
+            { name: 'Розовый', value: '#ff99cc', code: 'N/A', fullName: 'Custom' }, // Не стандартный цвет
+            { name: 'Коричневый', value: '#8b6f47', code: '4T9', fullName: 'Brown Mica' } // Toyota Brown Mica
+        ]
+    },
     rotationStep: Math.PI / 4,
     defaultColor: '#ff0000',
     // Список доступных моделей автомобилей
@@ -751,6 +825,48 @@ class ColorPalette {
     }
 
     /**
+     * Отображение кода краски
+     */
+    displayPaintCode(code, fullName) {
+        const codeDisplay = document.getElementById('paint-code-display');
+        const codeValue = document.getElementById('paint-code-value');
+        const codeName = document.getElementById('paint-code-name');
+        
+        if (codeDisplay && codeValue) {
+            if (code && code !== 'N/A') {
+                codeValue.textContent = code;
+                codeDisplay.style.display = 'block';
+                
+                // Показываем полное название цвета, если есть
+                if (codeName && fullName) {
+                    codeName.textContent = fullName;
+                } else if (codeName) {
+                    codeName.textContent = '';
+                }
+            } else if (code === 'N/A') {
+                codeValue.textContent = 'N/A';
+                codeDisplay.style.display = 'block';
+                if (codeName && fullName) {
+                    codeName.textContent = fullName + ' (не стандартный цвет)';
+                }
+            } else {
+                codeDisplay.style.display = 'none';
+            }
+        }
+    }
+
+    /**
+     * Получить цвета для текущей модели
+     */
+    getColorsForCurrentModel() {
+        const currentModel = CONFIG.carModels[CONFIG.carModel.currentModelIndex];
+        if (currentModel && CONFIG.modelPaintCodes[currentModel.id]) {
+            return CONFIG.modelPaintCodes[currentModel.id];
+        }
+        return CONFIG.presetColors;
+    }
+
+    /**
      * Создание палитры цветов
      */
     createPalette() {
@@ -759,7 +875,13 @@ class ColorPalette {
             return;
         }
 
-        CONFIG.presetColors.forEach((colorData, index) => {
+        // Очищаем контейнер
+        this.container.innerHTML = '';
+
+        // Получаем цвета для текущей модели
+        const colors = this.getColorsForCurrentModel();
+
+        colors.forEach((colorData, index) => {
             const colorDiv = document.createElement('div');
             colorDiv.className = 'color-option';
             if (index === 0) {
@@ -773,14 +895,14 @@ class ColorPalette {
 
             // Обработчик клика
             colorDiv.addEventListener('click', () => {
-                this.selectColor(index, colorData.value);
+                this.selectColor(index, colorData.value, colorData.code, colorData.fullName);
             });
 
             // Обработчик клавиатуры
             colorDiv.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
-                    this.selectColor(index, colorData.value);
+                    this.selectColor(index, colorData.value, colorData.code, colorData.fullName);
                 }
             });
 
@@ -791,7 +913,7 @@ class ColorPalette {
     /**
      * Выбор цвета
      */
-    selectColor(index, colorValue) {
+    selectColor(index, colorValue, paintCode, fullName) {
         // Удаляем активный класс со всех элементов
         document.querySelectorAll('.color-option').forEach(opt => {
             opt.classList.remove('active');
@@ -804,7 +926,7 @@ class ColorPalette {
         }
 
         this.activeColorIndex = index;
-        this.onColorSelect(colorValue);
+        this.onColorSelect(colorValue, paintCode, fullName);
     }
 
     /**
@@ -841,9 +963,12 @@ class CarPaintingApp {
         this.carViewer = new CarViewer3D('car-container');
 
         // Инициализация цветовой палитры
-        this.colorPalette = new ColorPalette('color-grid', (color) => {
-            this.handleColorChange(color);
+        this.colorPalette = new ColorPalette('color-grid', (color, paintCode, fullName) => {
+            this.handleColorChange(color, paintCode, fullName);
         });
+
+        // Показываем код краски для первого цвета по умолчанию
+        this.updatePaintCodeForCurrentModel();
 
         // Инициализация селектора моделей
         this.initModelSelector();
@@ -896,6 +1021,19 @@ class CarPaintingApp {
     }
 
     /**
+     * Обновление кода краски для текущей модели
+     */
+    updatePaintCodeForCurrentModel() {
+        if (this.colorPalette) {
+            const colors = this.colorPalette.getColorsForCurrentModel();
+            const firstColor = colors[0];
+            if (firstColor && firstColor.code) {
+                this.colorPalette.displayPaintCode(firstColor.code, firstColor.fullName);
+            }
+        }
+    }
+
+    /**
      * Смена модели
      */
     async changeModel(index) {
@@ -916,6 +1054,12 @@ class CarPaintingApp {
                 
                 // Обновляем заголовок
                 this.updateModelTitle();
+                
+                // Обновляем палитру цветов для новой модели
+                if (this.colorPalette) {
+                    this.colorPalette.createPalette();
+                    this.updatePaintCodeForCurrentModel();
+                }
             } catch (error) {
                 console.error('Ошибка загрузки модели:', error);
                 if (loadingElement) {
@@ -929,7 +1073,7 @@ class CarPaintingApp {
     /**
      * Обработка изменения цвета
      */
-    handleColorChange(color) {
+    handleColorChange(color, paintCode, fullName) {
         if (this.carViewer) {
             this.carViewer.updateColor(color);
         }
@@ -938,6 +1082,11 @@ class CarPaintingApp {
         const customColorInput = document.getElementById('custom-color');
         if (customColorInput) {
             customColorInput.value = color;
+        }
+
+        // Отображение кода краски
+        if (this.colorPalette) {
+            this.colorPalette.displayPaintCode(paintCode, fullName);
         }
     }
 
@@ -950,7 +1099,7 @@ class CarPaintingApp {
         if (customColorInput) {
             customColorInput.addEventListener('input', (e) => {
                 const color = e.target.value;
-                this.handleColorChange(color);
+                this.handleColorChange(color, null, null); // Нет кода для пользовательского цвета
                 if (this.colorPalette) {
                     this.colorPalette.resetActive();
                 }
