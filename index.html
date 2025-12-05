@@ -37,6 +37,12 @@
                     <div class="color-picker-section">
                         <h3>Выберите цвет покраски:</h3>
                         <div class="color-grid" id="color-grid" role="group" aria-label="Палитра цветов"></div>
+                        <div id="paint-code-display" class="paint-code-display" style="display: none;">
+                            <div style="margin-bottom: 0.5rem;">
+                                <strong>Код краски:</strong> <span id="paint-code-value">-</span>
+                            </div>
+                            <div id="paint-code-name" style="font-size: 0.85em; color: var(--text-light); font-style: italic;"></div>
+                        </div>
                         <label for="custom-color" class="custom-color-label">Или выберите свой цвет</label>
                         <input type="color" id="custom-color" class="custom-color-input" value="#ff0000" aria-label="Выбор пользовательского цвета">
                     </div>
